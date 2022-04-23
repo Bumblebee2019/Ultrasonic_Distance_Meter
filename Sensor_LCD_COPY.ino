@@ -14,10 +14,15 @@ int cm, distanceInch;
 //for button setup-------
 const int buttonPinLength = 12;
 const int buttonPinWidth = 13;
-int buttonState_1 = 0;
-int room_length = 0;
-int room_width = 0;
-int buttonState_2 = 0;
+const int buttonPinArea = 11;
+const int buttonPinReset = 8;
+
+int Length_buttonState = 0;
+int Width_buttonState = 0;
+int Reset_buttonState = 0;
+int Area_buttonState = 0;
+int room_length = 1;
+int room_width = 1;
 //----------------------
 
 void setup() {
@@ -28,23 +33,29 @@ pinMode(ECHO, INPUT);
 //for button--------------
 pinMode(buttonPinLength, INPUT);
 pinMode(buttonPinWidth, INPUT);
+pinMode(buttonPinReset, INPUT);
+pinMode(buttonPinArea, INPUT);
 digitalWrite(buttonPinLength, HIGH);
 digitalWrite(buttonPinWidth, HIGH);
+digitalWrite(buttonPinReset, HIGH);
+digitalWrite(buttonPinArea, HIGH);
 }
 
 void loop() {
 lcd.setCursor(0,0); // Sets the location at which subsequent text written to the LCD will be displayed
-// read the state of the pushbutton value:
-buttonState_1 = digitalRead(buttonPinLength);
+//----------------------------Reset Button-------------------------------------------
+if((room_length == 0) && (room_width == 0)) {
+  lcd.print("Ready to measure");
+}
+Reset_buttonState = digitalRead(buttonPinReset);
+if (Reset_buttonState == LOW) {
+  room_length = 0;
+  room_width = 0;
+}
 
 //=================================Length Measurement===================================
-//if we say (buttonState_1 == LOW)then, we first measure distance; upon button press, "Measuring length" text appears.
-//Serial.println("first button");
-if (buttonState_1 == HIGH) {
-  lcd.print("Measuring length: ");
-}
-else {
-   //Serial.println("start ELSE condition");
+Length_buttonState = digitalRead(buttonPinLength);
+if (Length_buttonState == LOW) {
    digitalWrite(TRIG, LOW);
    delayMicroseconds(2);
    digitalWrite(TRIG, HIGH);
@@ -52,14 +63,13 @@ else {
    digitalWrite(TRIG, LOW);
 
    duration = pulseIn(ECHO, HIGH);
-   cm = (duration/2) * 0.0343;
-  //distanceInch = duration*0.0133/2;
-   lcd.print("Distance: "); // Prints string "Distance" on the LCD
-   lcd.print(cm); // Prints the distance value from the sensor
+   room_length = (duration/2) * 0.0343;
+   lcd.clear();
+   lcd.print("Length: "); // Prints string "Distance" on the LCD
+   lcd.print(room_length); // Prints the distance value from the sensor
    lcd.print("  cm");
    delay(10);
-   room_length = cm;
-  // lcd.clear();
+   //room_length = cm;
 }
 //Serial.println("outside ELSE condition");
 
@@ -67,12 +77,8 @@ else {
 
 //=================================Width Measurement===================================
 
-buttonState_2 = digitalRead(buttonPinWidth);
-if (buttonState_2 == HIGH) {
-  lcd.print("Measuring width: ");
-  //Serial.println("if statementsecond button");
-}
-else {
+Width_buttonState = digitalRead(buttonPinWidth);
+if (Width_buttonState == LOW){
    digitalWrite(TRIG, LOW);
    delayMicroseconds(2);
    digitalWrite(TRIG, HIGH);
@@ -80,13 +86,21 @@ else {
    digitalWrite(TRIG, LOW);
 
    duration = pulseIn(ECHO, HIGH);
-   cm = (duration/2) * 0.0343;
+   room_width = (duration/2) * 0.0343;
   //distanceInch = duration*0.0133/2;
-   lcd.print("Distance: "); // Prints string "Distance" on the LCD
-   lcd.print(cm); // Prints the distance value from the sensor
+   lcd.clear();
+   lcd.print("Width: "); // Prints string "Distance" on the LCD
+   lcd.print(room_width); // Prints the distance value from the sensor
    lcd.print("  cm");
    delay(10);
-   
 }
-//=========================================================================================
+//============================Area Calculation=========================================================
+Area_buttonState = digitalRead(buttonPinArea);
+if (Area_buttonState == LOW) {
+  int area = room_length * room_width;
+  lcd.clear();
+  lcd.print("Area: ");
+  lcd.print(area);
+  lcd.print(" cmm");
+}
 }
