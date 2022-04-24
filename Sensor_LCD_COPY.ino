@@ -1,5 +1,6 @@
 #include <LiquidCrystal.h>
 #include <arduino-timer.h>
+#include <string.h>
 LiquidCrystal lcd(1, 2, 4, 5, 6, 7); // Creates an LCD object. Parameters: (rs, enable, d4, d5, d6, d7)
 
 /*
@@ -109,11 +110,15 @@ if (Width_buttonState == LOW){
 Area_buttonState = digitalRead(buttonPinArea);
 if (Area_buttonState == LOW) {
   int area = room_length * room_width;
+  //Preparing the display:
+  String area_to_str = String(area);
+  int area_string_length = area_to_str.length();
+  int cell_number = 9 + area_string_length;
   lcd.clear();
   lcd.print("Area: ");
   lcd.print(area);
   lcd.print(" cm");
-  lcd.setCursor(11,0);
+  lcd.setCursor(cell_number,0);
   lcd.write((byte)0);
 }
 }
