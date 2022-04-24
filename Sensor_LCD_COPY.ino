@@ -21,36 +21,47 @@ int Length_buttonState = 0;
 int Width_buttonState = 0;
 int Reset_buttonState = 0;
 int Area_buttonState = 0;
-int room_length = 1;
-int room_width = 1;
+int room_length = 0;
+int room_width = 0;
 //----------------------
+byte newCharSquare[8] = {
+  B01100,
+  B10010,
+  B00100,
+  B01000,
+  B11110,
+  B00000,
+  B00000,
+  B00000
+};
 
 void setup() {
-lcd.begin(16,2); // Initializes the interface to the LCD screen, and specifies the dimensions (width and height) of the display
-pinMode(TRIG, OUTPUT);
-pinMode(ECHO, INPUT);
-//Serial.begin(9600);
-//for button--------------
-pinMode(buttonPinLength, INPUT);
-pinMode(buttonPinWidth, INPUT);
-pinMode(buttonPinReset, INPUT);
-pinMode(buttonPinArea, INPUT);
-digitalWrite(buttonPinLength, HIGH);
-digitalWrite(buttonPinWidth, HIGH);
-digitalWrite(buttonPinReset, HIGH);
-digitalWrite(buttonPinArea, HIGH);
+  lcd.createChar(0, newCharSquare);
+  lcd.begin(16,2); // Initializes the interface to the LCD screen, and specifies the dimensions (width and height) of the display
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  //Serial.begin(9600);
+  //for button--------------
+  pinMode(buttonPinLength, INPUT);
+  pinMode(buttonPinWidth, INPUT);
+  pinMode(buttonPinReset, INPUT);
+  pinMode(buttonPinArea, INPUT);
+  digitalWrite(buttonPinLength, HIGH);
+  digitalWrite(buttonPinWidth, HIGH);
+  digitalWrite(buttonPinReset, HIGH);
+  digitalWrite(buttonPinArea, HIGH);
 }
 
 void loop() {
-lcd.setCursor(0,0); // Sets the location at which subsequent text written to the LCD will be displayed
-//----------------------------Reset Button-------------------------------------------
-if((room_length == 0) && (room_width == 0)) {
-  lcd.print("Ready to measure");
-}
-Reset_buttonState = digitalRead(buttonPinReset);
-if (Reset_buttonState == LOW) {
-  room_length = 0;
-  room_width = 0;
+  lcd.setCursor(0,0); // Sets the location at which subsequent text written to the LCD will be displayed
+  //----------------------------Reset Button-------------------------------------------
+  if((room_length == 0) && (room_width == 0)) {
+    lcd.print("Ready to measure");
+  }
+  Reset_buttonState = digitalRead(buttonPinReset);
+  if (Reset_buttonState == LOW) {
+    room_length = 0;
+    room_width = 0;
 }
 
 //=================================Length Measurement===================================
@@ -101,6 +112,8 @@ if (Area_buttonState == LOW) {
   lcd.clear();
   lcd.print("Area: ");
   lcd.print(area);
-  lcd.print(" cmm");
+  lcd.print(" cm");
+  lcd.setCursor(11,0);
+  lcd.write((byte)0);
 }
 }
