@@ -11,4 +11,4 @@ Tentative Timeline: I will break the project into three logical phases:
 * Putting the project together and adding the fourth button to display the area. 
 
 # Diagram
-<img src="/path/to/img.jpg" alt="Alt text" title="Optional title">
+![Diagram](Project_Diagram.PNG)
