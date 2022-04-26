@@ -9,3 +9,6 @@ Tentative Timeline: I will break the project into three logical phases:
 * Making a simple model, where the distance between the object and a sensor appears on the display. At this point, I will only have one button to turn the project on and off.
 * Adding a second button, so that upon pressing it, the distance measured gets saved in the memory. Then, I will add another button, so the second measurement will get saved to the memory as well.
 * Putting the project together and adding the fourth button to display the area. 
+
+# Diagram
+<img src="/path/to/img.jpg" alt="Alt text" title="Optional title">
