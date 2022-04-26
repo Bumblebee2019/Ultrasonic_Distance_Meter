@@ -10,5 +10,5 @@ Tentative Timeline: I will break the project into three logical phases:
 * Adding a second button, so that upon pressing it, the distance measured gets saved in the memory. Then, I will add another button, so the second measurement will get saved to the memory as well.
 * Putting the project together and adding the fourth button to display the area. 
 
-# Diagram
+# Project Diagram
 ![Diagram](Project_Diagram.PNG)
