@@ -1,5 +1,5 @@
 # Ultrasonic_Distance_Meter
-
+## Full demo: https://www.youtube.com/watch?v=iW21Z8npc8g 
 # Proposal
 Project Significance: Knowing the apartment area is very important for deciding the amount of taxes a tenant must pay. Apartment price also depends on the square footage. My Ultrasonic Distance Meter facilitates area calculations as the user only needs to measure the distance to two walls (length and width of the room), and the area will be calculated for him by the device. While the measuring wheel is easily obstructed by objects like bedside stands and desks, the ultrasonic sensor can measure the distance to the wall from any point. 
 
